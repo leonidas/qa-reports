@@ -245,6 +245,11 @@ class ReportsController < ApplicationController
       @editing = false
       @wizard  = false
 
+      @nft_trends = nil
+      if @test_session.has_nft?
+        @nft_trends = NftHistory.new().session_measurement_csv_trend(@test_session)
+      end
+
       render :layout => "report"
     else
       redirect_to :action => :index

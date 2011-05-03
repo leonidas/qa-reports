@@ -225,6 +225,36 @@ prepareCategoryUpdate = function(div) {
 
 }
 
+/**
+ * Add content to the NFT trend graph when it's shown.
+ * 
+ * Each callback is passed the "hash" object consisting of the 
+ * following properties; 
+ *  w: (jQuery object) The dialog element
+ *  c: (object) The config object (dialog's parameters)
+ *  o: (jQuery object) The overlay
+ *  t: (DOM object) The triggering element 
+ */
+var renderNftTrendGraph = function(hash) {
+    var m_id = hash.t.id.match("[0-9]{1,}$");
+    var $elem = $("#nft-trend-data-" + m_id);
+    
+    var data = $elem.children(".nft_trend_graph_data").text();
+    // Don't break the whole thing if there's no data - now one can
+    // at least close the window
+    if (!data) {
+	data = "Date,Value";
+    }
+    var title = $elem.find(".nft_trend_graph_title").text();
+    var unit = $elem.find(".nft_trend_graph_unit").text();
+    
+    var graph = document.getElementById("nft_trend_graph");
+    dyg = new Dygraph(graph, data);
+
+    hash.w.find("h1").text(title);
+    hash.w.show();
+};
+
 function linkEditButtons() {
     $('div.editable_area').each(function(i, node) {
         var $node = $(node);

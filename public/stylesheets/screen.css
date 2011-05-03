@@ -1661,6 +1661,9 @@ td.fail {
 	color: #aaa;
 	font-size:0.91666em;}
 
+a:hover .unit {
+	color: #000;}
+
 #test_results .sort {
     margin-left: 3em;}
 
@@ -1713,17 +1716,27 @@ table.nft_graph_key_figures {
 width: 35px;
 }
 
+.nft_trend_button {
+	padding-right: 17px;
+	background: transparent no-repeat right 2px url(../images/nft_trend_icon.png);
+	text-decoration:none;}
+
+.nft_trend_button:hover {
+	background-image: url(../images/nft_trend_icon_hover.png);
+	cursor: pointer;
+}
+
 .testcase_graph canvas {
 	cursor: pointer;
 }
 
 .nft_drilldown_modal_window {
 	width: 800px;
-	padding: 40px;
+	padding: 14px 40px 40px;
 	margin-left: -440px;
 }
 
-#nft_drilldown_graph {
+#nft_drilldown_graph, #nft_trend_graph {
         width: 823px;
         height: 314px;
         padding: 20px;

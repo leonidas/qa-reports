@@ -6,4 +6,4 @@
         = print_title_link(feature.name)
         a.see_all_toggle href="#" + see passing tests
   tbody
-    = render :partial => "nft_testcase", :collection => feature.nft_cases
+    = render :partial => "nft_testcase", :collection => feature.nft_cases, :locals => {:feature => feature.name}

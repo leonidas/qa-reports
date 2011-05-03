@@ -91,6 +91,10 @@ When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
   end
 end
 
+When /^(?:|I )click on element "([^"]*)"$/ do |xpath|
+  find(:xpath, xpath).click
+end
+
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do |path, field, selector|
   with_scope(selector) do
     attach_file(field, path)

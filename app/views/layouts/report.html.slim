@@ -68,6 +68,11 @@ html
             | Shift-drag to pan.
             br/
             | Doubleclick to zoom out.
+    #nft_trend_dialog.jqmWindow.nft_drilldown_modal_window style="display:none;"
+      h1 test case name
+      a.ui_btn.modal_close href=""
+        span X
+      #nft_trend_graph style="width:790px; height:290px;"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"
     javascript:
       var BUGZILLA_URI = "#{BUGZILLA_CONFIG['link_uri']}";
@@ -82,6 +87,11 @@ html
       } else {
         $(document).ready(function(){
           renderSeriesGraphs(".serial_canvas");
+
+          $('#nft_trend_dialog').jqm({
+            modal:true,
+            onShow:renderNftTrendGraph
+          }).jqmAddTrigger('.nft_trend_button').jqmAddClose($('a.modal_close'));
         });
       }
 
