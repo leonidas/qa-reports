@@ -71,11 +71,11 @@
       / NOTE: The following is identical in _nft_testcase and _testcase_comment.
       / Partial not used here because of seriously bad performance.
       td class="testcase_notes #{'edit' if @editing}" rowspan="#{testcase.all_measurements.size if testcase.has_nft }"
-      .content
-        = comment_html(testcase)
-        - if not testcase.attachments.empty?
-          - attachment = testcase.attachments.first
-          a class="note_attachment #{'image_attachment' if attachment.image?}" href="#{attachment.pretty_url}" title=attachment.filename =attachment.pretty_url
-      - if @editing
-        .comment_markup style="display:none;" #{testcase.comment}
+        .content
+          = comment_html(testcase)
+          - if not testcase.attachments.empty?
+            - attachment = testcase.attachments.first
+            a class="note_attachment #{'image_attachment' if attachment.image?}" href="#{attachment.pretty_url}" title=attachment.filename =attachment.pretty_url
+        - if @editing
+          .comment_markup style="display:none;" #{testcase.comment}
     - first = false
