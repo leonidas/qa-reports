@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testresults environment="hardware" hwproduct="unknown" hwbuild="unknown" version="0.1">
+ <suite name="simple-suite" timeout="90" manual="false" insignificant="false">
+  <set name="simple-set" description="Example test definition" timeout="90" manual="false" insignificant="false" environment="hardware">
+   <case name="simple-case1" timeout="90" manual="false" insignificant="false" result="PASS">
+    <step manual="false" command="sleep 2" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2011-03-04 15:58:43</start>
+     <end>2011-03-04 15:58:45</end>
+     <stdout></stdout>
+     <stderr></stderr>
+    </step>
+    <series name="Current samples" group="Current measurement" unit="mA" interval="100" interval_unit="ms">
+     <measurement value="86.800000"/>
+     <measurement value="78.400000"/>
+     <measurement value="88.600000"/>
+     <measurement value="89.800000"/>
+     <measurement value="80.200000"/>
+     <measurement value="84.400000"/>
+     <measurement value="90.400000"/>
+     <measurement value="83.800000"/>
+     <measurement value="80.800000"/>
+     <measurement value="92.200000"/>
+     <measurement value="30.000000"/>
+    </series>
+   </case>
+   <case name="simple-case2" timeout="90" manual="false" insignificant="false" result="PASS">
+    <step manual="false" command="sleep 1" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2011-03-04 15:58:45</start>
+     <end>2011-03-04 15:58:46</end>
+     <stdout></stdout>
+     <stderr></stderr>
+    </step>
+    <measurement name="temperature" value="29.000000" unit="C"/>
+    <measurement name="bandwidth" value="18.000000" unit="Mb/s"/>
+    <measurement name="length" value="95.000000" unit="m" target="60.000000" failure="70.000000"/>
+    <measurement name="weight" value="60.000000" unit="kg"/>
+    <series name="Current samples" group="Current measurement" unit="mA" interval="100" interval_unit="ms">
+     <measurement value="92.800000"/>
+     <measurement value="01.400000"/>
+     <measurement value="87.000000"/>
+     <measurement value="08.000000"/>
+     <measurement value="95.400000"/>
+     <measurement value="03.200000"/>
+    </series>
+   </case>
+   <case name="simple-case3" timeout="90" manual="false" insignificant="false" result="PASS">
+    <step manual="false" command="echo foo" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2011-03-04 15:58:47</start>
+     <end>2011-03-04 15:58:47</end>
+     <stdout>foo
+</stdout>
+     <stderr></stderr>
+    </step>
+    <series name="Current samples" group="Current measurement" unit="mA" interval="100" interval_unit="ms">
+     <measurement value="245.000000"/>
+    </series>
+    <series name="temperature" unit="C" target="35.000000" failure="40.000000">
+     <measurement timestamp="2011-03-04T13:18:26.000000" value="125.000000"/>
+     <measurement timestamp="2011-03-04T13:18:27.005000" value="130.000000"/>
+     <measurement timestamp="2011-03-04T13:18:28.000050" value="136.000000"/>
+     <measurement timestamp="2011-03-04T13:18:29.250001" value="128.000000"/>
+    </series>
+   </case>
+  </set>
+ </suite>
+</testresults>

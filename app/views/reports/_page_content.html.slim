@@ -50,10 +50,11 @@
           tr
             th#th_test_case
               span.sort
-                a.see_only_failed_button.sort_btn#detailed_case.active href="#" See only failed
-                a.see_all_button.sort_btn#detailed_case href="#" See all
+                a.see_only_failed_button.sort_btn.non_nft_button#detailed_case.active href="#" See only failed
+                a.see_all_button.sort_btn.non_nft_button#detailed_case href="#" See all
                 - if @history
-                  a.see_history_button.sort_btn#detailed_case href="#" See history
+                  a.see_history_button.sort_btn.non_nft_button#detailed_case href="#" See history
+
                 - unless @build_diff.empty?
                   a.see_the_same_build_button.sort_btn#detailed_case href="#" See build
             th#th_result Result
@@ -67,9 +68,10 @@
             tr
               th#th_history_test_case
                 span.sort
-                  a.see_only_failed_button.sort_btn#detailed_case href="#" See only failed
-                  a.see_all_button.sort_btn#detailed_case href="#" See all
-                  a.see_history_button.sort_btn#detailed_case.active href="#" See history
+                  a.see_only_failed_button.sort_btn.non_nft_button#detailed_case href="#" See only failed
+                  a.see_all_button.sort_btn.non_nft_button#detailed_case href="#" See all
+                  a.see_history_button.sort_btn.non_nft_button#detailed_case.active href="#" See history
+
                   - unless @build_diff.empty?
                     a.see_the_same_build_button.sort_btn#detailed_case href="#" See build
               = history_headers(@history)
@@ -100,14 +102,16 @@
       h2#detailed_nft_results
         | Non-functional Test Results
         span.heading_actions= back_to_top
-      table#non-functional_results.detailed_results
+      table.non-functional_results.detailed_results
         thead
           tr
             th#th_nft_test_case
-                /| <span class="sort">
-                /| <a href="#" id="see_only_failed_button" class="sort_btn active">See only failed</a>
-                /| <a href="#" id="see_all_button" class="sort_btn">See all</a>
-                /| </span>
+              -if @history
+                span.sort
+                  a.see_latest_button.sort_btn.active.nft_button href="#"
+                    | See latest
+                  a.see_nft_history_button.sort_btn.nft_button href="#"
+                    | See history
             th.th_name Measurement
             th.th_measured Value
             th.th_target Target
@@ -117,6 +121,25 @@
             th#th_notes Notes
 
         = render :partial => "nft_feature", :collection => @test_session.nft_sets
+      /! NFT history
+
+      -if @history
+        table.non-functional_results.detailed_results.history style="display:none;"
+          thead
+            tr
+              th#th_nft_test_case
+                span.sort
+                  a.see_latest_button.sort_btn.nft_button href="#"
+                    | See latest
+                  a.see_nft_history_button.sort_btn.active.nft_button href="#"
+                    | See history
+              th.th_name Measurement
+              th.th_measured
+                = format_date_for_nft_history @nft_trends.start_date 
+                '  -
+                = format_date_for_nft_history @report.tested_at
+
+          = render :partial => "nft_feature_history", :collection => @test_session.nft_sets
 
     = render :partial => 'editable_text', :locals => {:anchor => 'issue_summary', :title => "Issue Summary", :field => 'issue_summary'}
 

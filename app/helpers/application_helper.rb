@@ -117,6 +117,10 @@ module ApplicationHelper
     date ? date.strftime('%Y-%m-%d') : ''
   end
 
+  def format_date_for_nft_history(date)
+    date ? date.strftime('%d/%m/%Y') : ''
+  end
+
   def use_nokia_layout?
     request.host.include? "maemo" or request.host.include? "nokia"
   end

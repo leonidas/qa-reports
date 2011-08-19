@@ -336,6 +336,9 @@ em {
 .un {font-weight: normal;
     font-size: smaller;}
 
+/* second undermine for giving text less contrast */
+.un2 {color: #aaa;}
+
 dfn {
     font-weight:bold; }
 
@@ -699,8 +702,7 @@ input#report_test_data.file {
 .ui_btn:hover {
     -webkit-box-shadow: #aaa 0px 0px 2px;
     -moz-box-shadow: #aaa 0px 0px 2px;
-    box-shadow: #aaa 0px 0px 2px;
-    /*filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=3);*/}
+    box-shadow: #aaa 0px 0px 2px;}
 
 .ui_btn:active {
     background-image: url(../images/ui_btn_bg_active.png);
@@ -1523,8 +1525,16 @@ td.dec em{
 .th_target {
 	width: 7%;}
 
+.th_name {
+	width: 17%;
+}
+
 .th_measured {
 	width:7%;}
+
+.history .th_measured {
+	width: 45%;
+	text-align:left;}
 
 .th_limit {
 	width:7%;}
@@ -1824,6 +1834,18 @@ td.fail {
 .fail {
     color: #ec4343; }
 
+.med {
+	color: #233a84;}
+
+.avg {
+	color: #6c3d0f;}
+
+.min {
+	color: #bb2825;}		
+
+.max {
+	color: #2a7438;}
+
 .history_result {
 	background: transparent no-repeat right 0.8em url(../images/history_arrow.png);}
 
@@ -1904,17 +1926,25 @@ width: 35px;
 	cursor: pointer;
 }
 
+
 .nft_drilldown_modal_window {
 	width: 800px;
 	padding: 14px 40px 40px;
 	margin-left: -440px;
 }
 
+/* TODO this was the old one, is it the right one as well?
 #nft_drilldown_graph, #nft_trend_graph {
         width: 823px;
         height: 314px;
         padding: 20px;
         border: 1px solid #b2b2b2;
+*/
+.drilldown_container {
+  width: 770px;
+  height: 270px;
+  padding : 10px;
+  border: 1px solid #b2b2b2;
 }
 
 .modal_close {

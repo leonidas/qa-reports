@@ -34,16 +34,17 @@ html
       h1 test case name
       a.ui_btn.modal_close href=""
         span X
-      #nft_drilldown_graph style="width:790px; height:290px;"
-      .nft_graph_options
-        div
-          h3 Usage
-          p
-            | Click and drag to zoom
-            br/
-            | Shift-drag to pan.
-            br/
-            | Doubleclick to zoom out.
+      .drilldown_container
+        #nft_drilldown_graph style="width:770px; height:270px;"
+        .nft_graph_options
+          div
+            h3 Usage
+            p
+              | Click and drag to zoom
+              br/
+              | Shift-drag to pan.
+              br/
+              | Doubleclick to zoom out.
     = javascript_include_tag "jquery-ui.min.js"
 
     /! Modal dialog template for viewing test case image attachments
@@ -54,11 +55,55 @@ html
       .attachment_image_container
         img#attachment_dialog_image alt="attachment_image" src=""
 
+    /! Modal window for NFT history graph (trend for single measured values)
+
     #nft_trend_dialog.jqmWindow.nft_drilldown_modal_window style="display:none;"
       h1 test case name
       a.ui_btn.modal_close href=""
         span X
-      #nft_trend_graph style="width:790px; height:290px;"
+      .drilldown_container
+        #nft_trend_graph style="width:770px; height:270px;"
+        .nft_graph_options
+          div
+            h3 Usage
+            p
+              | Click and drag to zoom
+              br/
+              | Shift-drag to pan.
+              br/
+              | Doubleclick to zoom out.
+
+    /! Modal window for NFT measurement series history graph
+    /! (trend for medians of measurement series)
+    #nft_series_history_dialog.jqmWindow.nft_drilldown_modal_window style="display:none;"
+      h1 test case name
+      a.ui_btn.modal_close href=""
+        span X
+      .drilldown_container
+        #nft_series_history_graph style="width:770px; height:270px;"
+        .nft_graph_options
+          div
+            h3 
+              | Legend
+            input name="serial_values" value="0" type="checkbox" checked="checked"
+            span.max Max
+            br
+            input name="serial_values" value="1" type="checkbox" checked="checked"
+            span.avg Avg
+            br
+            input name="serial_values" value="2" type="checkbox" checked="checked"
+            span.med Med
+            br
+            input name="serial_values" value="3" type="checkbox" checked="checked"
+            span.min Min
+          div
+            h3 Usage
+            p
+              | Click and drag to zoom
+              br/
+              | Shift-drag to pan.
+              br/
+              | Doubleclick to zoom out.
 
     = javascript_include_tag 'application', 'jqModal', 'layout_report'
     = yield :view_specific_js

@@ -1,0 +1,9 @@
+- feature = nft_feature_history
+- if not feature.nft_cases.empty?
+  tbody
+    tr.feature_name id="test-set-#{feature.id}"
+      td colspan="3"
+        = print_title_link(feature.name)
+        a.see_all_toggle href="#" + see passing tests
+  tbody
+    = render :partial => "nft_testcase_history", :collection => feature.nft_cases, :locals => {:feature => feature.name}

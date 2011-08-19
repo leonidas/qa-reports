@@ -14,11 +14,21 @@ on_ready_steps = ->
       onShow:updateTemplateImage
     }).jqmAddTrigger('.image_attachment').jqmAddClose('.modal_close')
 
+    # Dialog that show history trend for an NFT measurement
     $('#nft_trend_dialog').jqm({
-      modal:true
-      onShow:renderNftTrendGraph
-    }).jqmAddTrigger('.nft_trend_button').jqmAddClose($('a.modal_close'))
+      modal:true,
+      topTop:true
+    }).jqmAddClose('.modal_close')
 
+    # The link that opens the trend dialog in See latest -mode
+    $('.nft_trend_button').click ->
+      m_id = $(this).attr("id").match("[0-9]{1,}$")
+      renderNftTrendGraph(m_id)
+
+    # Dialog that show NFT serial measurements history in See history -mode
+    $('#nft_series_history_dialog').jqm({
+      modal:true
+    }).jqmAddTrigger('.nft_series_history_modal_toggle').jqmAddClose('.modal_close')
 
 # IE hack
 if typeof G_vmlCanvasManager != 'undefined'

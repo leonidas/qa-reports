@@ -53,15 +53,6 @@
         -else
           a.nft_trend_button id="nft-trend-button-#{m.id}" href="" title="See history"
             = m.value_html
-          div id="nft-trend-data-#{m.id}" style="display:none;"
-            span.nft_trend_graph_title
-              = testcase.name
-              ' :
-              = m.name
-            span.nft_trend_graph_unit
-              = m.unit
-            span.nft_trend_graph_data
-              = @nft_trends.measurements[feature][testcase.name][m.name]
 
       td.testcase_target= m.target_html
       td.testcase_limit= m.failure_html
