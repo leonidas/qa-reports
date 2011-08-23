@@ -3,19 +3,25 @@ Before do
     "auth_token"      => "foobar",
     "release_version" => "1.2",
     "target"          => "Core",
-    "testtype"        => "automated",
-    "hwproduct"       => "N900",
+    "testset"         => "automated",
+    "product"         => "N900",
     "tested_at"       => "2010-1-1",
     "report.1"        => Rack::Test::UploadedFile.new("features/resources/sim.xml", "text/xml")
   }
 
-  @default_new_api_opts = @default_api_opts.merge({
-    "testset"        => "automated",
-    "product"         => "N900",
+  # The oldest API (hwproduct and testtype have since been renamed)
+  @default_version_1_api_opts = @default_api_opts.merge({
+    "hwproduct"       => "N900",
+    "testtype"        => "automated"
   })
-  @default_new_api_opts.delete("testtype")
-  @default_new_api_opts.delete("hwproduct")
+  @default_version_1_api_opts.delete("testset")
+  @default_version_1_api_opts.delete("product")
 
+  # The 2nd API (hardware has since been renamed)
+  @default_version_2_api_opts = @default_api_opts.merge({
+    "hardware"        => "N900"
+  })
+  @default_version_2_api_opts.delete("product")
 
   @testcase_template = {
   :name => "dummy testcase", :result => 1, :comment => "dummy"

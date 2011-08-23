@@ -7,13 +7,13 @@ Feature: REST API update report with nft
   
   Background:
     Given I am an user with a REST authentication token
-    And I have sent the file "serial_result.xml" via the REST API
+    And I have sent a file with NFT results
+    And I view the report
+    And I see NFT results
 
-  Scenario: Updating test report with HTTP POST with nft cases removed from the report
-    When the client sends a updated file "sim.xml" with the id 1 via the REST API
-
-    Then the REST result "ok" is "1"
+  Scenario: Updating test report with NFT cases removed from the report
+    When the client sends an updated result file
+    Then the upload succeeds
     
-    When I view the report "1.2/Netbook/Automated/N900"
-    Then I should not find element "#detailed_nft_results"
-    And I should not find element "a[href='#detailed_nft_results']" within ".toc"
+    When I view the updated report
+    Then I should not see NFT results

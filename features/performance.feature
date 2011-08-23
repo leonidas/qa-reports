@@ -36,8 +36,8 @@ Feature: Loading times
 
     When I start the timer
 
-    And the client sends file "4000_cases.csv" via the REST API
-    And the client sends file "4000_cases_2.csv" via the REST API
+    And the client sends file "features/resources/4000_cases.csv" via the REST API
+    And the client sends file "features/resources/4000_cases_2.csv" via the REST API
     Then the time spent for the "import 2 reports via API" step should be less than 27 seconds
 
     When I view the group report "1.2/Core/automated/N900"
@@ -46,10 +46,10 @@ Feature: Loading times
     When I follow "See detailed comparison"
     Then the time spent for the "compare two bigger reports" step should be less than 9 seconds
 
-    And the client sends file "2000_cases.csv" via the REST API
-    And the client sends file "2000_cases.csv" via the REST API
-    And the client sends file "2000_cases.csv" via the REST API
-    And the client sends file "2000_cases.csv" via the REST API
+    And the client sends file "features/resources/2000_cases.csv" via the REST API
+    And the client sends file "features/resources/2000_cases.csv" via the REST API
+    And the client sends file "features/resources/2000_cases.csv" via the REST API
+    And the client sends file "features/resources/2000_cases.csv" via the REST API
     Then the time spent for the "import 4 more big reports via API" step should be less than 34 seconds
 
     When I view the group report "1.2/Core/automated/N900"
