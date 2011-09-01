@@ -50,7 +50,7 @@ $(document).ready ->
       $('#file_upload' + id + 'ProgressBar').text((loaded/total*100).toFixed(0) + "%")
     onComplete: (id, fileName, response) ->
       $('#file_upload' + id).remove()
-      $("#uploaded_list").append('<li><input type="checkbox" name="drag_n_drop_attachments[]" value="' + response.url + '" checked="true">' + fileName + '</li>')
+      $("#uploaded_list").append('<li><input type="checkbox" name="drag_n_drop_attachments[]" value="' + response.attachment_id + '" checked="true">' + fileName + '</li>')
       if uploader._handler.getQueue().length == 1
         $('form input[type=submit]').removeAttr('disabled')
 

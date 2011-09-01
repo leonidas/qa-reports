@@ -38,8 +38,6 @@ class MeegoTestSession < ActiveRecord::Base
   include MeasurementUtils
   include CacheHelper
 
-  attr_accessor :uploaded_files
-
   has_many :features, :dependent => :destroy, :order => "id DESC"
   has_many :meego_test_cases, :autosave => false, :order => "id DESC"
   has_many :result_files, :class_name => 'FileAttachment', :as => :attachable, :dependent => :destroy, :conditions => {:attachment_type => 'result_file'}
@@ -55,7 +53,7 @@ class MeegoTestSession < ActiveRecord::Base
   belongs_to :release
 
   validates_presence_of :title, :target, :testset, :product
-  validates_presence_of :uploaded_files #, :on => :create
+  validates_presence_of :result_files
   validates_presence_of :author
 
   validates :tested_at, :date_time => true
@@ -143,15 +141,6 @@ class MeegoTestSession < ActiveRecord::Base
 
   def prev_summary
     prev_session
-  end
-
-  def self.import(attributes, files, user)
-    attr             = attributes.merge!({:uploaded_files => files})
-    result           = MeegoTestSession.new(attr)
-    result.tested_at = result.tested_at || Time.now
-    result.import_report(user, true)
-    result.save!
-    result
   end
 
   def self.load_case_counts_for_reports!(reports)
@@ -468,7 +457,7 @@ class MeegoTestSession < ActiveRecord::Base
     if filename =~ /\.csv$/i or filename =~ /\.xml$/i
       return true
     else
-      errors.add :uploaded_files, "You can only upload files with the extension .xml or .csv"
+      errors.add :result_files, "You can only upload files with the extension .xml or .csv"
       return false
     end
   end
@@ -502,7 +491,7 @@ class MeegoTestSession < ActiveRecord::Base
 
   def update_report_result(user, params, published = true)
     tmp = ReportFactory.new.build(params)
-    parsing_errors = tmp.errors[:uploaded_files]
+    parsing_errors = tmp.errors[:result_files]
 
     user.update_attribute(:default_target, self.target) if self.target.present?
     self.editor    = user
@@ -511,7 +500,7 @@ class MeegoTestSession < ActiveRecord::Base
     if !parsing_errors.empty?
       return parsing_errors.join(',')
     else
-      @uploaded_files = tmp.uploaded_files
+      @result_files = tmp.result_files
       self.features.clear
       self.meego_test_cases.clear
       tmp.features.each do |feature|

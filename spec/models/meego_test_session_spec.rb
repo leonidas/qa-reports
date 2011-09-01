@@ -29,7 +29,7 @@ describe MeegoTestSession do
       :target => "Core",
       :testset => "Sanity",
       :tested_at => "2011-12-30 23:45:59",
-      :uploaded_files => "foo.csv"
+      :result_files => [FileAttachment.create]
     }
 
     mts = MeegoTestSession.new(params)
@@ -74,7 +74,7 @@ describe MeegoTestSession do
     it "should fail if target is not found" do
       @testset = 'SomeTestSet'
       @product = 'Someproduct'
-      MeegoTestSession.stub!(:find_by_target).and_return(nil)      
+      MeegoTestSession.stub!(:find_by_target).and_return(nil)
       MeegoTestSession.filters_exist?(@target, @testset, @product).should be_false
     end
 

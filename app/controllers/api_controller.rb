@@ -32,8 +32,8 @@ class ApiController < ApplicationController
 
     errors = []
 
-    data[:uploaded_files] = collect_files(data, "report", errors)
-    attachments           = collect_files(data, "attachment", errors)
+    data[:result_files] = collect_files(data, "report", errors)
+    data[:attachments]  = collect_files(data, "attachment", errors)
 
     if !errors.empty?
       render :json => {:ok => '0', :errors => "Request contained invalid files: " + errors.join(',')}
@@ -63,10 +63,6 @@ class ApiController < ApplicationController
       return
     end
 
-    attachments.each do |file|
-      @test_session.attachments.build :file => file
-    end
-
     begin
       @test_session.save!
 
@@ -86,7 +82,7 @@ class ApiController < ApplicationController
 
     errors                = []
 
-    data[:uploaded_files] = collect_files(data, "report", errors)
+    data[:result_files] = collect_files(data, "report", errors)
     data[:updated_at] = data[:updated_at] || Time.now
 
     if !errors.empty?
@@ -139,14 +135,16 @@ class ApiController < ApplicationController
 
   private
 
+  ATTACHMENT_TYPE_MAPPING = {'report' => :result_file, 'attachment' => :attachment}
+
   def collect_file(parameters, key, errors)
     file = parameters.delete(key)
     if (file!=nil)
       if (!file.respond_to?(:path))
         errors << "Invalid file attachment for field " + key
       end
+      FileAttachment.new(:file => file, :attachment_type => ATTACHMENT_TYPE_MAPPING[key.split('.').first])
     end
-    file
   end
 
   def collect_files(parameters, name, errors)

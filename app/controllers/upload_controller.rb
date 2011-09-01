@@ -54,16 +54,9 @@ class UploadController < ApplicationController
   def upload_report
     file = filestream_from_qq_param
 
-    extension = File.extname(file.original_filename)
-    raw_filename_wo_extension = File.basename(file.original_filename, extension)
+    attachment = FileAttachment.create! :file => file, :attachment_type => :result_file
 
-    # TODO: Temp files needs to be deleted periodically
-    url      = "/reports/tmp/#{raw_filename_wo_extension.parameterize}#{extension}"
-    filename = "#{Rails.root}/public#{url}"
-
-    File.open(filename, 'wb') {|f| f.write( file.read() ) }
-
-    render :json => { :ok => '1', :url => url }
+    render :json => { :ok => '1', :attachment_id => attachment.id }
   end
 
   def upload_attachment
@@ -81,8 +74,7 @@ class UploadController < ApplicationController
   end
 
   def upload
-    params[:meego_test_session][:uploaded_files] ||= []
-    params[:meego_test_session][:uploaded_files] += handle_ajax_uploads(params[:drag_n_drop_attachments])
+    params[:meego_test_session][:result_files] = FileAttachment.where(:id => params.delete(:drag_n_drop_attachments))
 
     @test_session = ReportFactory.new.build(params[:meego_test_session])
     @test_session.author = current_user
@@ -110,21 +102,5 @@ class UploadController < ApplicationController
       f.original_filename = request['qqfile']
       return f
     end
-  end
-
-  def handle_ajax_uploads(ajax_uploads)
-    uploaded_files = []
-
-    ajax_uploads ||= []
-    ajax_uploads.each do |name|
-      file = File.new("public" + name)
-      tmp = Tempfile.new("result_file")
-      tmp.write file.read
-      tmp.rewind
-      uploaded_files << ActionDispatch::Http::UploadedFile.new(:filename => File.basename(file.path), :tempfile => tmp)
-      rm file.path
-    end
-
-    uploaded_files
   end
 end

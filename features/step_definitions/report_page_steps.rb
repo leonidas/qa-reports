@@ -102,7 +102,7 @@ Given /^there exists a report for "([^"]*)"$/ do |report_name|
     :password_confirmation => "password")
 
   session = MeegoTestSession.new(:target => target, :product => product,
-    :testset => test_set, :uploaded_files => [testfile],
+    :testset => test_set, :result_files_attributes => [{:file => testfile}],
     :tested_at => Time.now, :author => user, :editor => user, :release_version => version
   )
   session.generate_defaults! # Is this necessary, or could we just say create! above?
@@ -154,7 +154,7 @@ When /^I remove the attachment from the test case "([^"]*)"$/ do |test_case|
 end
 
 When /^I attach the report "([^"]*)"$/ do |file|
-  And "attach the file \"#{Dir.getwd}/features/resources/#{file}\" to \"meego_test_session[uploaded_files][]\""
+  And "attach the file \"#{Dir.getwd}/features/resources/#{file}\" to \"meego_test_session[result_files_attributes][][file]\""
 end
 
 Given /^I select target "([^"]*)", test set "([^"]*)" and product "([^"]*)"(?: with date "([^\"]*)")?/ do |target, test_set, product, date|

@@ -28,6 +28,7 @@ if Rails.env == "staging" and MeegoTestSession.count < 10000 # ensure there's al
 
   fpath = File.join(Rails.root, "features", "resources", "sample.csv")
   tmpfile_path = File.join(Rails.root, "tmp", "tmp_file.csv")
+  tmpfile = File.open(tmpfile_path)
 
   File.open(fpath, "r") do |csv_file|
     File.open(tmpfile_path, "w") do |tmp_file|
@@ -39,7 +40,7 @@ if Rails.env == "staging" and MeegoTestSession.count < 10000 # ensure there's al
     session = MeegoTestSession.new(
       "build_txt" => "",
       "qa_summary_txt" => "",
-      "uploaded_files" => [tmpfile_path],
+      "result_files_attributes" => [{:file => tmpfile, :attachment_type => :result_file}],
       "testset" => "Acceptance",
       "product" => "N900",
       "environment_txt" => "",

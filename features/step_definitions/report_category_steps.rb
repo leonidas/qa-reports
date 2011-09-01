@@ -1,29 +1,15 @@
 Given /^there are (\d+) reports from "([^"]*)" under "([^"]*)"$/ do |num, date, report_path|
-  release, profile, testset, product = report_path.split '/'
+  release, target, testset, product = report_path.split '/'
   year, month = date.split '/'
 
-  user = User.first ||
-    User.new(:name => "Dummy",
-             :email => "dummy@dummy.com",
-             :password => "dummypw",
-             :password_confirmation => "dummypw",
-             :authentication_token => "dummytoken")
-  user.save! unless user.persisted?
-
-  release = Release.find_by_normalized(release)
   num.to_i.times do |i|
-    s = MeegoTestSession.new(@report_template)
-    s.tested_at = DateTime.new(year.to_i, month.to_i, i % 27 + 1)
-    s.release_id = release.id
-    s.target = profile
-    s.testset = testset
-    s.product = product
-    s.author = user
-    s.published = false
-    s.save!
+    FactoryGirl.create(:test_report,
+      :tested_at => DateTime.new(year.to_i, month.to_i, i % 27 + 1),
+      :release => Release.find_by_normalized(release),
+      :target => target,
+      :testset => testset,
+      :product => product)
   end
-
-  MeegoTestSession.update_all('published = true')
 end
 
 When /^I view the report category "([^"]*)"$/ do |report_path|

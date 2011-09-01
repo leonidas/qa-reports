@@ -32,24 +32,6 @@ Before do
     "hardware"        => "N900"
   })
   @default_version_2_api_opts.delete("product")
-
-  @testcase_template = {
-  :name => "dummy testcase", :result => 1, :comment => "dummy"
-  }
-  @feature_template = {
-    :name => "dummy feature", :meego_test_cases_attributes => [@testcase_template]
-  }
-  @report_template = {
-    :release_version => "1.2",
-    :target => "Core",
-    :testset => "Sanity",
-    :product => "N900",
-    :tested_at => "2011-12-30 23:45:59",
-    :published => true,
-    :title => "dummy title",
-    :uploaded_files => "dummy_file.csv",
-    :features_attributes => [@feature_template]
-  }
 end
 
 After do

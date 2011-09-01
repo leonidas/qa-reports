@@ -268,7 +268,7 @@ Then "the result complains about invalid file" do
 end
 
 Then "the result complains about missing file" do
-  Then %{the REST result "errors|uploaded_files" is "can't be blank"}
+  Then %{the REST result "errors|result_files" is "can't be blank"}
 end
 
 Then "the result complains about missing target profile" do
