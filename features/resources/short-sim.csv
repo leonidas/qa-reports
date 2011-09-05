@@ -1,5 +1,5 @@
-Feature,Check points,Notes (bugs),Pass,Fail,N/A
-SIM,SMOKE-SIM-Query_SIM_card_status,"",1,,
-SIM,SMOKE-SIM-Get_IMSI,"",,1,
-SIM,SMOKE-SIM-Query_Service_Provider_name,"",,1,
-SIM,SMOKE-SIM-Read_HPLMN,"",,1,
+Feature,Test Case,Pass,Fail,NA,Comment,Measurement Name,Value,Unit,Target,Failure
+SIM,SMOKE-SIM-Query_SIM_card_status,1,,
+SIM,SMOKE-SIM-Get_IMSI,,1,
+SIM,SMOKE-SIM-Query_Service_Provider_name,,1,
+SIM,SMOKE-SIM-Read_HPLMN,,1,

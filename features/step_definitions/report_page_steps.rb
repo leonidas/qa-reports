@@ -38,7 +38,7 @@ Then /I should see the imported data from "([^"]*)" and "([^"]*)" in the exporte
   result = FasterCSV.parse(page.text, {:col_sep => ';'}).drop(1)
   result.count.should == input.count
 
-  mapped_result = result.map{ |item| [item[6], item[7], item[11], item[8], item[9], item[10]] }
+  mapped_result = result.map{ |item| [item[6], item[7], item[8], item[9], item[10], item[11]] }
   (input - mapped_result).should be_empty
 
 

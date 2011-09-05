@@ -63,6 +63,12 @@ class ApiController < ApplicationController
       return
     end
 
+    # Check the errors 
+    if @test_session.errors.length > 0
+      render :json => {:ok => '0', :errors => @test_session.errors}
+      return
+    end
+
     attachments.each do |file|
       @test_session.attachments.build :file => file
     end

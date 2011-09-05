@@ -1,3 +1,3 @@
-Feature,Test case,Notes (bugs),Pass,Fail,N/A
-Feature One,Description One,OK,1,0,0
-Feature Two,Description Two,This Fails,0,1,0
+Feature,Test Case,Pass,Fail,NA,Comment,Measurement Name,Value,Unit,Target,Failure
+Feature One,Description One,1,0,0,OK
+Feature Two,Description Two,0,1,0,This Fails

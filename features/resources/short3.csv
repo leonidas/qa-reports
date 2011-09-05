@@ -1,4 +1,4 @@
-Feature,Check points,Notes (bugs),Pass,Fail,N/A
-Feature Five,Description Five,This Fails,,1,
-Feature Six,Description Six,OK,1,,
-Feature Seven,Description Seven,This N/A,,,1
+Feature,Test Case,Pass,Fail,NA,Comment,Measurement Name,Value,Unit,Target,Failure
+Feature Five,Description Five,,1,,This Fails
+Feature Six,Description Six,1,,,OK
+Feature Seven,Description Seven,,,1,This N/A

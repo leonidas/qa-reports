@@ -1,4 +1,4 @@
-Category,Check points,Notes (bugs),Pass,Fail,N/A
+Feature,Test Case,Comment,Pass,Fail,N/A,Measurement Name,Value,Unit,Target,Failure
 Create Image,Create image with MIC2,,1,,
 System startup,Image boot from SD card,5705- [REG] Unable to display home screen automatically unless tapping the screen,,1,
 Home sc

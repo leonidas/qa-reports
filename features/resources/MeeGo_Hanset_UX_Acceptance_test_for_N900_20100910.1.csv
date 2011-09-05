@@ -1,4 +1,4 @@
-Feature,Check points,Notes (bugs),Pass,Fail,N/A
+Feature,Test Case,Comment,Pass,Fail,N/A,Measurement Name,Value,Unit,Target,Failure
 Create Image,Create image with MIC2,,1,,
 System startup,Image boot from SD card,,1,,
 Home screen,"Check if core applications* (Dialer, SMS, fennec browser, photo viewer, audio player, video player, contacts, email, Terminal) can be launched from app-launcher","Bug 5850 - It takes long time to launch core applications at the first time.

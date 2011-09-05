@@ -1,4 +1,4 @@
-Feature,Check points,Notes (bugs),Pass,Fail,N/A
-Feature,Test One,Failed test,,1,
-Feature,Test Two,Passed test,1,,
-Feature,Test Three,N/A test,,,1
+Feature,Test Case,Pass,Fail,NA,Comment,Measurement Name,Value,Unit,Target,Failure
+Feature,Test One,,1,,Failed test
+Feature,Test Two,1,,,Passed test
+Feature,Test Three,,,1,N/A test

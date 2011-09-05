@@ -1,0 +1,3 @@
+Feature,Test Case,Pass,Fail,NA,Comment,Measurement Name,Value,Unit,Target,Failure
+Sample Feature,NFT Case 1,1,,,,Throughput,10,bps,8,6
+Sample Feature,NFT Case 2,,1,,[[1234]],Throughput,4,bps,12,5
