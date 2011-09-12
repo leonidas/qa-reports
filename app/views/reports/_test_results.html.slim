@@ -14,7 +14,7 @@ h2#test_results
             strong= @report.total_cases
           td class="change #{@report.total_change_class}"
             em= @report.total_change
-          td rowspan="7" style="background-color: white;"
+          td rowspan="8" style="background-color: white;"
             #summary_graph_wrapper
               canvas#summary_graph_canvas height="210" width="395"
         tr.odd
@@ -53,6 +53,13 @@ h2#test_results
             strong= @report.executed_pass_rate
           td class=@report.executed_pass_rate_change_class
             em= @report.executed_pass_rate_change
+        - if @report.has_non_serial_nft?
+          tr.odd
+            td NFT Index
+            td
+              strong= @report.nft_index
+            td class=@report.nft_index_change_class
+              em= @report.nft_index_change
 
     h3#test_features Test Results by Feature
 

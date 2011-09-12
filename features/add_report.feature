@@ -148,6 +148,25 @@ Feature:
     And I should see "Throughput"
     And I should see "Detailed Test Results"
 
+  Scenario: NFT index calculated for an NFT report
+    When I follow "Add report"
+
+    And I select target "Handset", test set "NFT report" and product "N980" with date "2011-09-07"
+    And I attach the report "nft_measurements.xml"
+    And submit the form at "upload_report_submit"
+
+    Then I should see "NFT Index"
+    And I should see "38%"
+
+  Scenario: NFT index not shown if there are no non-serial measurements
+    When I follow "Add report"
+
+    And I select target "Handset", test set "NFT report" and product "N980" with date "2011-09-06"
+    And I attach the report "sim.xml"
+    And submit the form at "upload_report_submit"
+
+    Then I should not see "NFT Index"
+
   @selenium
   Scenario: Add new report with underscore in test set and product names
     When I follow "Add report"

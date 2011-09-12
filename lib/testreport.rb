@@ -146,6 +146,14 @@ module ReportSummary
     end
   end
 
+  def nft_index
+    if nft_index_value == 0
+      "n/a"
+    else
+      "%.0f%%" % nft_index_value
+    end
+  end
+
   def run_rate_value
     if total_cases > 0
       (total_executed*100.0/total_cases)
@@ -167,6 +175,20 @@ module ReportSummary
       (total_passed*100.0/total_executed)
     else
       0
+    end
+  end
+
+  def nft_index_value
+    return @nft_index unless @nft_index.nil?
+
+    # Select measurements for which nft_index can be calculated
+    # and map those calculated indices into an array
+    indices = MeegoMeasurement.where(:meego_test_case_id => meego_test_cases).select{|m| m if not m.nft_index.nil?}.map{|m| m.nft_index}
+
+    @nft_index = if indices.count == 0 then
+      0
+    else
+      indices.inject(:+) / indices.count * 100
     end
   end
 
@@ -209,7 +231,6 @@ module ReportSummary
       "inc"
     end
   end
-
 
   def total_change
     if not prev_summary or total_cases == prev_summary.total_cases
@@ -273,6 +294,16 @@ module ReportSummary
     end
   end
 
+  def nft_index_change_class
+    if not prev_summary or nft_index_value == prev_summary.nft_index_value
+      "unchanged"
+    elsif nft_index_value < prev_summary.nft_index_value
+      "dec"
+    else
+      "inc"
+    end
+  end
+
   def total_pass_rate_change
     if not prev_summary or total_pass_rate_value == prev_summary.total_pass_rate_value
       ""
@@ -289,6 +320,14 @@ module ReportSummary
     end
   end
 
+  def nft_index_change
+    if not prev_summary or nft_index_value == prev_summary.nft_index_value
+      ""
+    else
+      "%+.0f%%" % (nft_index_value - prev_summary.nft_index_value)
+    end
+  end
+
   def run_rate_change
     if not prev_summary or run_rate_value == prev_summary.run_rate_value
       ""
@@ -298,15 +337,23 @@ module ReportSummary
   end
 
   def total_nft
-    @total_nft ||=
-      MeegoMeasurement.select('DISTINCT meego_test_case_id').
-        where(:meego_test_case_id => meego_test_cases).count +
-      SerialMeasurement.select('DISTINCT meego_test_case_id').
-        where(:meego_test_case_id => meego_test_cases).count
+    @total_nft ||= total_non_serial_nft + total_serial_nft
   end
 
   def total_non_nft
     @total_non_nft ||= meego_test_cases.count - total_nft
+  end
+
+  def total_non_serial_nft
+    @total_non_serial_nft ||=
+      MeegoMeasurement.select('DISTINCT meego_test_case_id').
+        where(:meego_test_case_id => meego_test_cases).count
+  end
+
+  def total_serial_nft
+    @total_serial_nft ||=
+      SerialMeasurement.select('DISTINCT meego_test_case_id').
+        where(:meego_test_case_id => meego_test_cases).count
   end
 
   def has_nft?
@@ -315,6 +362,14 @@ module ReportSummary
 
   def has_non_nft?
     total_non_nft > 0
+  end
+
+  def has_non_serial_nft?
+    total_non_serial_nft > 0
+  end
+
+  def has_serial_nft?
+    total_serial_nft > 0
   end
 
   def calculate_grading
