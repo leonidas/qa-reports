@@ -1,6 +1,6 @@
 - content_for :version_navi do
   #version_navi
-    = release_version_navigation(release.name)
+    = release_version_navigation_latest(release.name)
 
 #index_page
   table#report_navigation
@@ -20,7 +20,7 @@
               li
                 a.name
 
-  a#see_categories_link href=url_for(:controller=>'reports', :action=>'index_latest') See latest categories
+  a#see_categories_link href=url_for(:controller=>'reports', :action=>'index') See all categories
 
 - content_for :view_specific_js do
   javascript:
