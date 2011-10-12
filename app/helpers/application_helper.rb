@@ -72,6 +72,58 @@ module ApplicationHelper
       end
 
       path = release
+
+      if target.present?
+        path += '/' + target
+
+        if testset.present?
+          path += '/' + testset
+
+          if product.present?
+            path += '/' + product
+          end
+        end
+      end
+
+      html += link_to link_text, root_url + path
+      html += '</li>'
+    end
+
+    html += '</ul>'
+    html.html_safe
+  end
+
+  def release_version_navigation_latest(current_version, target='', testset='', product='')
+    html = '<ul class="clearfix">'
+    link_text = ''
+    Release.names.each do |release|
+      if release =~ /\d+\.\d+/
+        if release == current_version
+            html += '<li class="current">'
+            link_text = "MeeGo v#{release}"
+        else
+            html += '<li>'
+            link_text = "v#{release}"
+        end
+      elsif release =~ /^[A-Za-z][0-9]$/
+        if release.downcase.eql? current_version.downcase
+          html += '<li class="current">'
+          link_text = "MeeGo #{release}"
+        else
+          html += '<li>'
+          link_text = "#{release}"
+        end
+      else
+        if release == current_version
+          html += '<li class="current">'
+        else
+          html += '<li>'
+        end
+        link_text = release
+      end
+
+      path = 'latest/' + release
+
       if target.present?
         path += '/' + target
 

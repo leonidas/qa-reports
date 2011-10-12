@@ -43,9 +43,10 @@ Meegoqa::Application.routes.draw do
     match '/:release_version(/:target(/:testset(/:product)))/rss'       => 'rss#rss',                  :via => "get"
 
     match '/:release_version/:target(/:testset(/:product))/report_list(/:page)' => 'report_groups#report_page', :via => "get", :as => :report_list
-    match '/:release_version/:target(/:testset(/:product))'                     => 'report_groups#show',        :via => "get", :as => :group_report
+    match '/latest(/:release_version)'                                          => 'reports#index_latest',      :via => "get", :as => :release
+    match '(/latest)/:release_version/:target(/:testset(/:product))'            => 'report_groups#show',        :via => "get", :as => :group_report
     match '/:release_version'                                                   => 'reports#index',             :via => "get", :as => :release
   end
 
-    root :to => "reports#index"
+    root :to => "reports#index_latest"
 end

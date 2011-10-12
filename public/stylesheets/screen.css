@@ -1197,6 +1197,7 @@ div.formError, #error, form .error {
 #index_page,
 #error_page {
     padding-bottom: 329px;
+    position: relative;
     background: url(../images/hdiv_3.png) no-repeat 50% bottom; }
 
 /* @group header */
@@ -2207,4 +2208,23 @@ div#drag_drop_area.indented ul input[type=checkbox] {
 div.field.last {
     padding-bottom: 30px;
     margin-bottom: -30px;
+}
+
+#see_categories_link {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #aaa;
+    text-align: right;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    width: 155px;
+    height: 16px;
+    line-height: 14px;
+}
+
+#see_categories_link:hover {
+    color: #F20089;
+    background-position: right -16px;
 }
