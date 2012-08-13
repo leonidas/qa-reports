@@ -41,7 +41,7 @@ group :development, :test do
   gem 'rspec-core','2.6.0'
   gem 'rspec-rails', '2.6.1'
   gem 'capybara-webkit'
-  gem 'capybara', '1.1.1'
+  gem 'capybara', '1.1.2'
   gem 'spork', '~> 0.9.0.rc'
   gem 'cucumber'
   gem 'rcov', :require => false

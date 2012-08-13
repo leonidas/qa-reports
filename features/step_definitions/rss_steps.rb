@@ -1,6 +1,8 @@
-When %r/^I fetch the rss feed for "([^"]*)"$/ do |filter|
+When %r/^I fetch the (.*)rss feed for "([^"]*)"$/ do |sort, filter|
   filter = "/#{filter}" unless (filter.start_with?("/") or filter =~ URI::regexp)
-  visit(filter + "/rss")
+  uri    = filter + "/rss"
+  uri    = uri    + "/tested_at" if defined? sort
+  visit(uri)
 end
 
 Then %r/^I should see (\d+) instance(?:s)? of "([^"]*)"$/ do |num, selector|

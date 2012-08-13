@@ -6,6 +6,7 @@ Feature: As a Test Manager I want to see changes between latest test sessions
     And I have created the "1.2/Core/Sanity/FeaturePassRate" report with date "2011-04-19" using "comparison2.csv"
     And I have created the "1.2/Core/Sanity/FeaturePassRate" report with date "2011-04-20" using "comparison3.csv"
 
+  @wip
   Scenario: Comparing results between latest and previous test reports
     When I view the group report "1.2/Core/Sanity/FeaturePassRate"
     And I follow "See detailed comparison"

@@ -48,7 +48,8 @@ Meegoqa::Application.routes.draw do
     match '/:release_version/:target(/:testset(/:product))/csv'         => 'csv_export#export',        :via => "get", :as => :group_report_csv
     match '/:release_version/:target/:testset/:product/:id/download'    => 'csv_export#export_report', :via => "get"
     match '/:release_version/:target/:testset/compare/:comparetestset'  => 'comparison_reports#show',  :via => "get", :as => :branch_comparison
-    match '/:release_version(/:target(/:testset(/:product)))/rss'       => 'rss#rss',                  :via => "get"
+
+    match '/:release_version(/:target(/:testset(/:product)))/rss(/:sort)'       => 'rss#rss',                   :via => "get"
 
     match '/:release_version/:target(/:testset(/:product))/report_list(/:page)' => 'report_groups#report_page', :via => "get", :as => :report_list
     match '/:release_version/:target(/:testset(/:product))'                     => 'report_groups#show',        :via => "get", :as => :group_report

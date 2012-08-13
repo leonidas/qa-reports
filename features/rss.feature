@@ -3,7 +3,7 @@ Feature: RSS Feed
   Background:
     Given I am logged in
     And I have created the "1.1/Core/Sanity/Aava" report using "sim.xml"
-    And I have created the "1.1/Core/Sanity/N900" report using "sim.xml"
+    And I have created the "1.1/Core/Sanity/N900" report with date "2008-1-1" using "sim.xml"
     And I have created the "1.1/Core/Weekly/Aava" report using "sim.xml"
     And I have created the "1.1/Handset/Sanity/Aava" report using "sim.xml"
     And I have created the "1.1/Handset/Sanity/N900" report using "sim.xml"
@@ -32,6 +32,14 @@ Feature: RSS Feed
     Then I should see 6 instances of "item"
     And I should see "Core"
     And I should see "Handset"
+
+  Scenario: Fetch RSS feed for test set level filter sorted by tested_at date
+    When I fetch the sorted rss feed for "1.1/Core/Sanity"
+
+    Then I should see 2 instances of "item"
+    And I should see "Aava"
+    And I should see "N900"
+    And I should see "2008-01-01" within "item:last"
 
   Scenario: Verify that offered RSS feeds change according to the page
     When I view the page for the release version "1.1"

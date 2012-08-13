@@ -3,7 +3,7 @@ Feature: Consolidated reports
   I want to compare reports of different hardware versions between branches
   So that I can decide if it's safe to create new release
 
-  @javascript
+  @wip @javascript
   Scenario: Comparing results between two branches with differences
     When report files "spec/fixtures/sim1.xml,features/resources/bluetooth.xml" are uploaded to branch "Sanity" for product "N900"
     And report files "spec/fixtures/sim1.xml,features/resources/bluetooth.xml" are uploaded to branch "Sanity" for product "N910"

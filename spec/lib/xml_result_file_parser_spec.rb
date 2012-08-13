@@ -348,7 +348,7 @@ END
     end
 
     it "should have two test cases" do
-     @test_cases2['Feature 1'].keys.should == ["case 1", "case 2"]
+     @test_cases2['Feature 1'].keys.count.should == 2
     end
   end
 
