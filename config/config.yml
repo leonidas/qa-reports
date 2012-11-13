@@ -38,3 +38,7 @@ documentation_link: 'https://github.com/leonidas/qa-reports/wiki'
 # Submit an Idea
 idea_link: 'https://github.com/leonidas/qa-reports/issues'
 
+# make the date format configurable in the report info box
+# for format directives see:
+# http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
+date_format: '%d %B %Y'

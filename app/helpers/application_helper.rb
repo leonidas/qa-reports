@@ -97,7 +97,7 @@ module ApplicationHelper
   end
 
   def format_date_to_human_readable(date)
-    date ? date.strftime('%d %B %Y') : 'n/a'
+    date ? date.strftime(APP_CONFIG['date_format']) : 'n/a'
   end
 
   def format_date_to_input(date)
