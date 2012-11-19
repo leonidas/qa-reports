@@ -1,3 +1,8 @@
 - files.each_with_index do |file, index|
   li id="result_file_#{index}"
-    a class="" href=file.pretty_url target="_blank" =file.filename
+    a class="" href=file.pretty_url target="_blank" ="xml"
+    | &nbsp;
+    a class="" href=file.pretty_url.sub(".xml",".html") target="_blank" ="html"
+    | &nbsp;
+    =file.filename
+
