@@ -1,0 +1,71 @@
+*{
+  font-family: sans-serif;
+  color: black;
+}
+
+pre{
+  font-family: monospace;
+  font-size: large;
+}
+
+#testsuite {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: solid black 1px;
+  margin: 5px;
+}
+
+#testset {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: solid blue 1px;
+}
+
+#presteps {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: solid yellow 1px;
+}
+
+#testcase {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: solid 1px;
+}
+
+.teststep {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: solid 1px;
+  background-color: white;
+}
+
+.stdout {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: dashed #90EE90 2px;
+}
+
+.stderr {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: dashed #FF4500 2px;
+}
+
+.PASS {
+  border-color: #90EE90;
+  background-color: #90EE90;
+}
+
+.FAIL {
+  border-color: #FF4500;
+  background-color: #FF4500;
+}
+
+.stepscontainer {
+  display: none;
+}
