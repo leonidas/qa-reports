@@ -9,6 +9,7 @@ APP_CONFIG['feedback_link']      ||= 'mailto:meego-qa@lists.meego.com'
 APP_CONFIG['documantation_link'] ||= 'https://github.com/leonidas/qa-reports/wiki'
 APP_CONFIG['idea_link']          ||= 'https://github.com/leonidas/qa-reports/issues'
 APP_CONFIG['date_format']        ||= '%d %B %Y'
+APP_CONFIG['xml_stylesheet']     ||= ''
 
 if CustomResult.table_exists?
   APP_CONFIG['custom_results'].each do |cr|

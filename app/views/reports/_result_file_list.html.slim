@@ -1,3 +1,10 @@
 - files.each_with_index do |file, index|
   li id="result_file_#{index}"
-    a class="" href=file.pretty_url target="_blank" =file.filename
+    - if APP_CONFIG['xml_stylesheet'].empty? || file.filename.end_with?(".csv")
+      a class="" href=file.pretty_url target="_blank" =file.filename
+    - else
+      a class="" href=file.pretty_url target="_blank" ="xml"
+      | &nbsp;
+      a class="" href=file.pretty_url.sub(".xml",".html") target="_blank" ="html"
+      | &nbsp;
+      =file.filename

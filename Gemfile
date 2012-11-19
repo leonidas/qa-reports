@@ -13,6 +13,8 @@ gem 'barista', '>= 0.5.0'
 gem 'rest-client', :require => 'rest_client'
 gem 'activerecord-import'
 gem "rake"
+gem 'ruby-xslt'
+gem 'ruby-xml-smart'
 
 group :production do
   gem 'newrelic_rpm'

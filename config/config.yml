@@ -42,3 +42,16 @@ idea_link: 'https://github.com/leonidas/qa-reports/issues'
 # for format directives see:
 # http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
 date_format: '%d %B %Y'
+
+# xslt processing of any xml results file can be enabled with setting
+# a path to a xsl file. QA-Reports contains 2 examples:
+# a very simple one:
+# ./lib/xslt/testresults-view.xsl 
+# and a more advanced one:
+# ./lib/xslt/testdefinition-results.xsl
+# testdefinition-results.xsl is from:
+# http://meego.gitorious.org/meego-quality-assurance/test-definition/blobs/master/src/data/testdefinition-results.xsl
+# NOTE: both examples just process xml result files produced by
+# testrunner-lite. 
+xml_stylesheet: ''
+
