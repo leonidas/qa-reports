@@ -25,7 +25,8 @@ class ReportShow < SummaryShow
       qa_summary: @report.qa_summary_txt,
       issue_summary: @report.issue_summary_txt,
       summary:  super,
-      features: features.map {|f| f.as_json(options)}
+      features: features.map {|f| f.as_json(options)},
+      prev_session_id: @report.prev_session.id
     }
   end
 

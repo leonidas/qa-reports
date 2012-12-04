@@ -72,6 +72,23 @@ class ReportComparison
     pair.present? && pair[0].present? && pair[1].present? && pair[0].result != pair[1].result
   end
 
+  def to_json(*a)
+    features
+    test_result_comparisons
+    changed_to_pass
+    changed_from_pass
+    changed_to_fail
+    changed_to_na
+    fixed_from_fail
+    fixed_from_na
+    regression_to_fail
+    regression_to_na
+    new_passing
+    new_failing
+    new_na
+    {'comparison' => self}.to_json(*a)
+  end
+
   private
 
   def new_test_cases
