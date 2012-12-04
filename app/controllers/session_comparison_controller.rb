@@ -4,9 +4,15 @@ class SessionComparisonController < ApplicationController
   layout "report"
 
   def show
-    @ids = [params[:id], params[:compare_id]]
-    @reports = [MeegoTestSession.fetch_for_comparison(@ids[0]),
-                MeegoTestSession.fetch_for_comparison(@ids[1])]
+    if params[:compare_id].eql?("previous")
+        @reports = [MeegoTestSession.fetch_for_comparison(params[:id]).prev_session,
+                    MeegoTestSession.fetch_for_comparison(params[:id])]
+        @ids = [@reports[0].id, params[:id]]
+    else
+        @ids = [params[:id], params[:compare_id]]
+        @reports = [MeegoTestSession.fetch_for_comparison(@ids[0]),
+                    MeegoTestSession.fetch_for_comparison(@ids[1])]
+    end
 
     # Need values for breadcrumb. Profile is always same
     # for both reports
