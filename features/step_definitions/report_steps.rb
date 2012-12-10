@@ -126,6 +126,7 @@ Then %r/^I should get the summary for the whole report$/ do
   @json['environment'].should == 'Laboratory environment'
   @json['qa_summary'].should == 'Ready to ship'
   @json['issue_summary'].should == 'No major issues found'
+  @json['prev_session_id'].nil?.should == false
 
 
   summary['Total'].should == 25
