@@ -354,6 +354,10 @@ class MeegoTestSession < ActiveRecord::Base
     tested_at.strftime("%d.%m")
   end
 
+  def format_table_date
+    tested_at.strftime(APP_CONFIG['table_date_format'])
+  end
+
   def format_year
     tested_at.strftime("%Y")
   end

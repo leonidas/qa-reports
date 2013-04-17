@@ -12,6 +12,7 @@ APP_CONFIG['feedback_link']      ||= 'mailto:meego-qa@lists.meego.com'
 APP_CONFIG['documantation_link'] ||= 'https://github.com/leonidas/qa-reports/wiki'
 APP_CONFIG['idea_link']          ||= 'https://github.com/leonidas/qa-reports/issues'
 APP_CONFIG['date_format']        ||= '%d %B %Y'
+APP_CONFIG['table_date_format']  ||= '%d.%m'
 APP_CONFIG['xml_stylesheet']     ||= ''
 APP_CONFIG['api_mapping']        ||= {'release_version' => '', 'target' => '', 'testset' => '', 'product' => ''}
 APP_CONFIG['group_labels']       ||= {'release_version' => 'MeeGo release',

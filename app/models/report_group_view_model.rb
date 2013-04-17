@@ -26,6 +26,7 @@ class ReportGroupViewModel
 
   def report_object(report)
     { :date => report.format_date,
+      :table_date => report.format_table_date,
       :name => report.title,
       :htmlgraph => {
         :passes => report.total_passed,

@@ -1,7 +1,0 @@
-tr class=cycle("odd", "even")
-  td.date=report.format_date
-  td.report_name
-    a href=show_report_path(report.release.name, report.profile.name, report.testset, report.product, report.id) =report.title
-  td.graph= report.small_graph_img_tag(@group_report.max_cases)
-  td.year style="display:none" =report.format_year
-end

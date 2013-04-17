@@ -57,6 +57,11 @@ idea_link: 'https://github.com/leonidas/qa-reports/issues'
 # http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
 date_format: '%d %B %Y'
 
+# make the date format configurable in the reports overview page
+# for format directives see:
+# http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
+table_date_format: '%d.%m'
+
 # xslt processing of any xml results file can be enabled with setting
 # a path to a xsl file. Adding this field adds [html] link after xml
 # result files in reports' original results files list. This allows
