@@ -56,7 +56,7 @@ GEM
       timers (~> 1.1.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    cocaine (0.2.1)
+    cocaine (0.3.2)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -155,10 +155,10 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
-    paperclip (2.3.16)
+    paperclip (2.7.5)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
+      cocaine (~> 0.3.0)
       mime-types
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -295,7 +295,7 @@ DEPENDENCIES
   launchy
   mysql2
   nokogiri (~> 1.6)
-  paperclip (~> 2.3.15)
+  paperclip (~> 2.7.5)
   rails (~> 3.2.12)
   rake
   rest-client
