@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '~>3.2.12'
 gem 'mysql2'
 gem 'nokogiri', '~>1.6'
+# TODO: When upgrading to 3.2 fix authentication_token:
+# http://blog.plataformatec.com.br/2013/08/devise-3-1-now-with-more-secure-defaults/
 gem 'devise'
 gem 'slim'
 # TODO: Update, not straightforward
@@ -31,14 +33,12 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-spork'
   gem 'guard-migrate'
+end
+
+group :development, :staging do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
-end
-
-group :staging do
-  gem 'capistrano'
-  gem 'capistrano-ext'
 end
 
 group :development, :test do
@@ -56,4 +56,3 @@ group :development, :test do
   gem 'factory_girl'
   gem "factory_girl_rails", "~> 4.2"
 end
-
