@@ -33,17 +33,15 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-spork'
   gem 'guard-migrate'
+end
+
+group :staging, :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
 end
 
-group :staging do
-  gem 'capistrano'
-  gem 'capistrano-ext'
-end
-
-group :staging, :development do
+group :staging, :production do
   gem 'passenger'
   gem 'daemon_controller'
 end
