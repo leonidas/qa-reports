@@ -76,6 +76,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
+    daemon_controller (1.2.0)
     database_cleaner (1.1.1)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
@@ -160,6 +161,10 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (~> 0.3.0)
       mime-types
+    passenger (4.0.37)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -280,6 +285,7 @@ DEPENDENCIES
   coffee-script (~> 2.2)
   cucumber
   cucumber-rails
+  daemon_controller
   database_cleaner
   devise
   dynamic_form (~> 1.1.4)
@@ -296,6 +302,7 @@ DEPENDENCIES
   mysql2
   nokogiri (~> 1.6)
   paperclip (~> 2.7.5)
+  passenger
   rails (~> 3.2.12)
   rake
   rest-client

@@ -24,40 +24,32 @@ passenger_port=8001
 # Where to deploy. This must be the same in deploy config
 deploy_to="/home/${username}/qa-reports.meego.com"
 
-# apt-get update
-# apt-get -y install apt-transport-https ca-certificates
+# MariaDB. Check correct APT source for your release from
+# https://downloads.mariadb.org/mariadb/repositories/#mirror=yamagata-university&distro=Ubuntu
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
+echo 'deb http://ftp.heanet.ie/mirrors/mariadb/repo/5.5/ubuntu precise main' > /etc/apt/sources.list.d/mariadb.list
 
-# # Phusion Passenger. Check correct APT source for your release from
-# # http://www.modrails.com/documentation/Users%20guide%20Standalone.html#install_on_debian_ubuntu
-# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-# echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main' > /etc/apt/sources.list.d/passenger.list
+apt-get update
 
-# # MariaDB. Check correct APT source for your release from
-# # https://downloads.mariadb.org/mariadb/repositories/#mirror=yamagata-university&distro=Ubuntu
-# apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
-# echo 'deb http://ftp.heanet.ie/mirrors/mariadb/repo/5.5/ubuntu precise main' > /etc/apt/sources.list.d/mariadb.list
+# Packages needed
+rvm_needs='libyaml-0-2 curl gawk libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison libffi-dev'
+gem_needs='build-essential libxml2-dev libxslt1-dev libmariadbclient-dev libssl-dev libcurl4-openssl-dev'
+deployment_needs='git'
+server_needs='nginx mariadb-server'
 
-# apt-get update
+# Now install everything on the same call to save some time
+apt-get -y install $rvm_needs $gem_needs $deployment_needs $server_needs
 
-# # Packages needed
-# rvm_needs='libyaml-0-2'
-# gem_needs='build-essential libxml2-dev libxslt1-dev libmariadbclient-dev libssl-dev libcurl4-openssl-dev'
-# deployment_needs='git'
-# server_needs='nginx mariadb-server passenger'
+grep -e "^ListenAddress" /etc/ssh/sshd_config || echo 'ListenAddress 0.0.0.0' >> /etc/ssh/sshd_config
 
-# # Now install everything on the same call to save some time
-# apt-get -y install $rvm_needs $gem_needs $deployment_needs $server_needs
+adduser --disabled-password --gecos "" qa-reports
+echo qa-reports:password | chpasswd
 
-# echo 'ListenAddress 0.0.0.0' >> /etc/ssh/sshd_config
-
-# adduser --disabled-password --gecos "" qa-reports
-# echo qa-reports:password | chpasswd
-
-# mysql -u root <<EOF
-#   CREATE DATABASE IF NOT EXISTS qa_reports_production;
-#   GRANT ALL ON qa_reports_production.* TO 'qa_reports'@'localhost' IDENTIFIED BY 'password';
-#   FLUSH PRIVILEGES;
-# EOF
+mysql -u root <<EOF
+  CREATE DATABASE IF NOT EXISTS qa_reports_production;
+  GRANT ALL ON qa_reports_production.* TO 'qa_reports'@'localhost' IDENTIFIED BY 'password';
+  FLUSH PRIVILEGES;
+EOF
 
 cat > /etc/nginx/sites-available/qa-reports <<EOF
 
@@ -100,6 +92,13 @@ EOF
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/qa-reports /etc/nginx/sites-enabled/default
 service nginx restart
+
+sudo su - $username -c 'curl -sSL https://get.rvm.io | bash'
+sudo su - $username <<EOF
+  rvm autolibs fail
+  rvm install 1.9.3 || echo -e "\nInstall the listed missing requirements manually, then rvm install 1.9.3 as $username\n"
+EOF
+
 
 cat <<EOF
   You can now try to deploy production environment. Settings:

@@ -179,12 +179,12 @@ namespace :deploy do
 
   desc "Start the app server"
   task :start, :roles => :app do
-    run "passenger start #{current_path} --daemonize --environment #{rails_env} --port 3000"
+    run "passenger start #{current_path} --daemonize --environment #{rails_env} --port #{passenger_port}"
   end
 
   desc "Stop the app server"
   task :stop, :roles => :app do
-    run "passenger stop --pid-file #{current_path}/passenger.3000.pid"
+    run "passenger stop --pid-file #{current_path}/passenger.#{passenger_port}.pid"
   end
 
   namespace :qadashboard do

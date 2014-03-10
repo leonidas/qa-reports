@@ -43,6 +43,11 @@ group :staging do
   gem 'capistrano-ext'
 end
 
+group :staging, :development do
+  gem 'passenger'
+  gem 'daemon_controller'
+end
+
 group :development, :test do
   gem 'launchy'
   gem 'rspec', '~>2.14.0'
