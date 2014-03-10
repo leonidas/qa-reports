@@ -59,6 +59,7 @@ namespace :qareports do
       # Upload application config
       upload("config/config.yml", "#{shared_path}/config/config.yml")
       qareports.setup.logrotate
+      qareports.setup.upstart
       deploy.qadashboard.setup
     end
 
@@ -116,15 +117,25 @@ namespace :qareports do
 
     desc "Create logrotate config"
     task :logrotate, :roles => :app do
-      conf = IO.read("config/logrotate.conf")
-      conf["##SHARED_PATH##"] = shared_path
-      # Write to shared path
+      conf = ERB.new(File.read("./config/server/logrotate.conf")).result(binding)
       put conf, "#{shared_path}/config/logrotate.conf"
       write_file = Capistrano::CLI::ui.ask("Write logrotate conf to /etc/logrotate.d (needs passwordless sudo)? Default:no")
       if write_file =~ /yes/i
-        run "cat #{shared_path}/config/logrotate.conf | sudo /usr/bin/tee /etc/logrotate.d/qa-reports"
+        run "sudo cp #{shared_path}/config/logrotate.conf /etc/logrotate.d/qa-reports"
       else
         puts "\033[36mLogrotate config written to #{shared_path}/config/logrotate.conf on remote server. Copy to /etc/logrotate.d by yourself.\033[0m"
+      end
+    end
+
+    desc "Create upstart config"
+    task :upstart, :roles => :app do
+      conf = ERB.new(File.read("./config/server/upstart.conf")).result(binding)
+      put conf, "#{shared_path}/config/#{application}.conf"
+      write_file = Capistrano::CLI::ui.ask("Write upstart conf to /etc/init (needs passwordless sudo)? Default:no")
+      if write_file =~ /yes/i
+        run "sudo cp #{shared_path}/config/#{application}.conf /etc/init/"
+      else
+        puts "\033[36mUpstart config written to #{shared_path}/config/#{application}.conf on remote server. Copy to /etc/init by yourself.\033[0m"
       end
     end
   end
