@@ -9,12 +9,13 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-set :user, 'www-data'
+set :user, 'qa-reports'
 set :use_sudo, false
 set :copy_compression, :zip
 
 set :scm, :git
 set :repository, 'http://github.com/leonidas/qa-reports.git'
+set :branch, 'dev'
 
 ssh_options[:forward_agent] = true
 
@@ -23,6 +24,12 @@ ssh_options[:forward_agent] = true
 # interactive mode
 #default_environment['http_proxy']  = "http://your.proxy.com:123"
 #default_environment['https_proxy'] = "http://your.proxy.com:123"
+
+# If set to true the start and stop commands execute upstart management
+# commands using sudo. Otherwise the will bundle exec passenger which does
+# not kick up the service after reboot. So use upstart and allow it to be
+# started and stopped without password.
+set :use_upstart, false
 
 after "deploy:setup",           "qareports:setup:setup"
 after "deploy:update_code",     "qareports:symlink_shared_folders"
@@ -179,12 +186,20 @@ namespace :deploy do
 
   desc "Start the app server"
   task :start, :roles => :app do
-    run "passenger start #{current_path} --daemonize --environment #{rails_env} --port #{passenger_port}"
+    if use_upstart
+      run "sudo start ${application}"
+    else
+      run "cd #{current_path} && bundle exec passenger start #{current_path} --daemonize --environment #{rails_env} --port #{passenger_port}"
+    end
   end
 
   desc "Stop the app server"
   task :stop, :roles => :app do
-    run "passenger stop --pid-file #{current_path}/passenger.#{passenger_port}.pid"
+    if use_upstart
+      run "sudo stop ${application}"
+    else
+      run "cd #{current_path} && bundle exec passenger stop --pid-file #{current_path}/passenger.#{passenger_port}.pid"
+    end
   end
 
   namespace :qadashboard do

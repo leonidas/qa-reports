@@ -46,8 +46,12 @@ adduser --disabled-password --gecos "" qa-reports
 echo qa-reports:password | chpasswd
 
 mysql -u root <<EOF
-  CREATE DATABASE IF NOT EXISTS qa_reports_production;
-  GRANT ALL ON qa_reports_production.* TO 'qa_reports'@'localhost' IDENTIFIED BY 'password';
+  CREATE DATABASE IF NOT EXISTS ${dbname};
+  GRANT ALL ON ${dbname}.* TO '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
+  USE ${dbname};
+  INSERT IGNORE INTO releases SET name='1.2', sort_order=1;
+  INSERT IGNORE INTO profiles SET name='Core', sort_order=1;
+  INSERT IGNORE INTO profiles SET name='Handset', sort_order=1;
   FLUSH PRIVILEGES;
 EOF
 
