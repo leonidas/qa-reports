@@ -48,10 +48,6 @@ echo qa-reports:password | chpasswd
 mysql -u root <<EOF
   CREATE DATABASE IF NOT EXISTS ${dbname};
   GRANT ALL ON ${dbname}.* TO '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
-  USE ${dbname};
-  INSERT IGNORE INTO releases SET name='1.2', sort_order=1;
-  INSERT IGNORE INTO profiles SET name='Core', sort_order=1;
-  INSERT IGNORE INTO profiles SET name='Handset', sort_order=1;
   FLUSH PRIVILEGES;
 EOF
 
@@ -117,11 +113,32 @@ cat <<EOF
 
   Passenger bind to port $passenger_port
 
-  In addition, please run the following locally to get passwordless SSH access
+  Deploy:
 
-  ssh-copy-id "${username}@localhost -p 2222"
+ssh-copy-id "${username}@localhost -p 2222"
+cap vagrant deploy:setup
+cap vagrant deploy:migrations
 
-  After deployment you should be able to access QA Reports from
+  And finally after deployment, run:
+
+vagrant ssh
+mysql -u root <<SQL
+  USE qa_reports_production;
+
+  INSERT IGNORE INTO releases SET name='1.3', sort_order=1;
+  INSERT IGNORE INTO releases SET name='1.2', sort_order=2;
+  INSERT IGNORE INTO releases SET name='1.1', sort_order=3;
+
+  INSERT IGNORE INTO profiles SET name='Core', sort_order=1;
+  INSERT IGNORE INTO profiles SET name='Handset', sort_order=2;
+  INSERT IGNORE INTO profiles SET name='Netbook', sort_order=3;
+  INSERT IGNORE INTO profiles SET name='IVI', sort_order=4;
+  INSERT IGNORE INTO profiles SET name='SDK', sort_order=5;
+SQL
+sudo cp /home/qa-reports/qa-reports.meego.com/shared/config/qa-reports.meego.com.conf /etc/init
+sudo start qa-reports.meego.com
+
+  You should now be able to access QA Reports from
   http://localhost:9000
 
 EOF
