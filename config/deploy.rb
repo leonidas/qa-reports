@@ -209,7 +209,7 @@ namespace :deploy do
     if use_upstart
       run "sudo stop ${application}"
     else
-      run "cd #{current_path} && bundle exec passenger stop --pid-file #{current_path}/passenger.#{passenger_port}.pid"
+      run "cd #{current_path} && bundle exec passenger stop --port #{passenger_port}"
     end
   end
 
