@@ -1,3 +1,4 @@
+set :user, 'www-data'
 set :application, "qa-reports.qa.leonidasoy.fi"
 set :deploy_to, "/home/#{user}/#{application}"
 set :rails_env, "staging"

@@ -9,13 +9,11 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-set :user, 'qa-reports'
 set :use_sudo, false
 set :copy_compression, :zip
 
 set :scm, :git
 set :repository, 'http://github.com/leonidas/qa-reports.git'
-set :branch, 'dev'
 
 ssh_options[:forward_agent] = true
 

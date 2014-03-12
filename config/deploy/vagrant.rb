@@ -1,3 +1,4 @@
+set :user, 'qa-reports'
 set :application, "qa-reports.meego.com"
 set :deploy_to, "/home/#{user}/#{application}"
 set :rails_env, "production"
