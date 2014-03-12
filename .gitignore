@@ -26,3 +26,4 @@ qa_reports_production.sql.bz2
 *.*.orig
 public/assets
 .directory
+.vagrant

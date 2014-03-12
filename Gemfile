@@ -8,7 +8,7 @@ gem 'nokogiri', '~>1.6'
 gem 'devise'
 gem 'slim'
 # TODO: Update, not straightforward
-gem 'paperclip', '~>2.3.15'
+gem 'paperclip', '~>2.7.5'
 gem 'coffee-script', '~>2.2'
 gem 'rest-client', :require => 'rest_client'
 gem 'activerecord-import'
@@ -35,10 +35,15 @@ group :development do
   gem 'guard-migrate'
 end
 
-group :development, :staging do
+group :staging, :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+end
+
+group :staging, :production do
+  gem 'passenger'
+  gem 'daemon_controller'
 end
 
 group :development, :test do

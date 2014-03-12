@@ -1,6 +1,7 @@
 set :application, "qa-reports.meego.com"
 set :deploy_to, "/home/#{user}/#{application}"
 set :rails_env, "production"
+set :passenger_port, 8001
 set :bundle_without, [:development, :test, :staging]
 
 ssh_options[:port] = 43398

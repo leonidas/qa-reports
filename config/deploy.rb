@@ -9,12 +9,13 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-set :user, 'www-data'
+set :user, 'qa-reports'
 set :use_sudo, false
 set :copy_compression, :zip
 
 set :scm, :git
 set :repository, 'http://github.com/leonidas/qa-reports.git'
+set :branch, 'dev'
 
 ssh_options[:forward_agent] = true
 
@@ -23,6 +24,12 @@ ssh_options[:forward_agent] = true
 # interactive mode
 #default_environment['http_proxy']  = "http://your.proxy.com:123"
 #default_environment['https_proxy'] = "http://your.proxy.com:123"
+
+# If set to true the start and stop commands execute upstart management
+# commands using sudo. Otherwise the will bundle exec passenger which does
+# not kick up the service after reboot. So use upstart and allow it to be
+# started and stopped without password.
+set :use_upstart, false
 
 after "deploy:setup",           "qareports:setup:setup"
 after "deploy:update_code",     "qareports:symlink_shared_folders"
@@ -52,6 +59,7 @@ namespace :qareports do
       # Upload application config
       upload("config/config.yml", "#{shared_path}/config/config.yml")
       qareports.setup.logrotate
+      qareports.setup.upstart
       deploy.qadashboard.setup
     end
 
@@ -109,15 +117,25 @@ namespace :qareports do
 
     desc "Create logrotate config"
     task :logrotate, :roles => :app do
-      conf = IO.read("config/logrotate.conf")
-      conf["##SHARED_PATH##"] = shared_path
-      # Write to shared path
+      conf = ERB.new(File.read("./config/server/logrotate.conf")).result(binding)
       put conf, "#{shared_path}/config/logrotate.conf"
       write_file = Capistrano::CLI::ui.ask("Write logrotate conf to /etc/logrotate.d (needs passwordless sudo)? Default:no")
       if write_file =~ /yes/i
-        run "cat #{shared_path}/config/logrotate.conf | sudo /usr/bin/tee /etc/logrotate.d/qa-reports"
+        run "sudo cp #{shared_path}/config/logrotate.conf /etc/logrotate.d/qa-reports"
       else
         puts "\033[36mLogrotate config written to #{shared_path}/config/logrotate.conf on remote server. Copy to /etc/logrotate.d by yourself.\033[0m"
+      end
+    end
+
+    desc "Create upstart config"
+    task :upstart, :roles => :app do
+      conf = ERB.new(File.read("./config/server/upstart.conf")).result(binding)
+      put conf, "#{shared_path}/config/#{application}.conf"
+      write_file = Capistrano::CLI::ui.ask("Write upstart conf to /etc/init (needs passwordless sudo)? Default:no")
+      if write_file =~ /yes/i
+        run "sudo cp #{shared_path}/config/#{application}.conf /etc/init/"
+      else
+        puts "\033[36mUpstart config written to #{shared_path}/config/#{application}.conf on remote server. Copy to /etc/init by yourself.\033[0m"
       end
     end
   end
@@ -179,12 +197,20 @@ namespace :deploy do
 
   desc "Start the app server"
   task :start, :roles => :app do
-    run "passenger start #{current_path} --daemonize --environment #{rails_env} --port 3000"
+    if use_upstart
+      run "sudo start ${application}"
+    else
+      run "cd #{current_path} && bundle exec passenger start #{current_path} --daemonize --environment #{rails_env} --port #{passenger_port}"
+    end
   end
 
   desc "Stop the app server"
   task :stop, :roles => :app do
-    run "passenger stop --pid-file #{current_path}/passenger.3000.pid"
+    if use_upstart
+      run "sudo stop ${application}"
+    else
+      run "cd #{current_path} && bundle exec passenger stop --port #{passenger_port}"
+    end
   end
 
   namespace :qadashboard do
