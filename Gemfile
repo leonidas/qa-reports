@@ -8,7 +8,7 @@ gem 'nokogiri', '~>1.6'
 gem 'devise'
 gem 'slim'
 # TODO: Update, not straightforward
-gem 'paperclip', '~>2.7.5'
+gem 'paperclip', '~>4.3.7'
 gem 'coffee-script', '~>2.2'
 gem 'rest-client', :require => 'rest_client'
 gem 'activerecord-import'
